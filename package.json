@@ -1,0 +1,11 @@
+{
+  "name": "Metacrafters-task",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/khsabhishek/Metacrafters-task.git",
+  "author": "khsabhishek <52825489+khsabhishek@users.noreply.github.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "hardhat": "^2.13.0"
+  }
+}
