@@ -24,7 +24,7 @@ contract Crowdfunding is modifiers{
         uint256 _durationDays,
         address _tokenAddress,
         address _projectOwner
-    ) CrowdFundingProject {
+    ) {
         fundingGoal = _fundingGoal;
         deadline = block.timestamp + (_durationDays * 1 days);
         token = TestToken(_tokenAddress);

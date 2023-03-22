@@ -17,7 +17,6 @@ contract CreateProject is modifiers {
 
     constructor() {
         owners[msg.sender] = true;
-        mainCrowdFundingProject = address(this);
     }
 
     function CreateCrowdFuncdingProject(
