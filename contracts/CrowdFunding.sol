@@ -56,6 +56,7 @@ contract Crowdfunding {
         // Transfer the pledge amount from the backer to the contract
         bool transfer = token.transferFrom(msg.sender, address(this), _value);
 
+        // Check if transfer is successful or not 
         require(transfer == true, "Transfer failed in pledge");
 
     }
@@ -80,6 +81,7 @@ contract Crowdfunding {
         // Transfer the pledged amount back to the sender
         bool transfer = token.transfer(msg.sender, pledgeAmount);
 
+        // Check if transfer is successful or not 
         require(transfer == true, "Transfer failed in withdraw");
 
         // Emit the Withdrawal event
@@ -100,6 +102,7 @@ contract Crowdfunding {
         // Transfer totalAmountRaised to projectOwner
         bool transfer = token.transfer(projectOwner, totalAmountRaised);
 
+        // Check if transfer is successful or not 
         require(transfer == true, "Transfer failed in claimFunds");
 
         // Emit the GoalReached event
@@ -125,6 +128,7 @@ contract Crowdfunding {
         // Transfer tokens to sender
         bool transfer = token.transfer(msg.sender, pledgeAmount);
 
+        // Check if transfer is successful or not 
         require(transfer == true, "Transfer in refund failed");
         
         // Emit Withdrawal event
