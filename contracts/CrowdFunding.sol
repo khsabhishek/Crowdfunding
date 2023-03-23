@@ -38,9 +38,6 @@ contract Crowdfunding {
         // Check that the backer has not already pledged
         require(!hasPledged[msg.sender], "You have already pledged");
 
-        // Transfer the pledge amount from the backer to the contract
-        require(token.transferFrom(msg.sender, address(this), _value), "Token transfer failed");
-
         // Update the backer's pledge balance and the total amount raised
         balanceOf[msg.sender] += _value;
         amountRaised += _value;
@@ -55,6 +52,12 @@ contract Crowdfunding {
         if (amountRaised >= fundingGoal) {
             emit GoalReached(projectOwner, amountRaised);
         }
+
+        // Transfer the pledge amount from the backer to the contract
+        bool transfer = token.transferFrom(msg.sender, address(this), _value);
+
+        require(transfer == true, "Transfer failed in pledge");
+
     }
 
     // Function for backers to withdraw their pledge if the campaign is unsuccessful
@@ -75,7 +78,9 @@ contract Crowdfunding {
         uint256 pledgeAmount = balanceOf[msg.sender];
 
         // Transfer the pledged amount back to the sender
-        token.transfer(msg.sender, pledgeAmount);
+        bool transfer = token.transfer(msg.sender, pledgeAmount);
+
+        require(transfer == true, "Transfer failed in withdraw");
 
         // Emit the Withdrawal event
         emit Withdrawal(msg.sender, pledgeAmount);
@@ -93,7 +98,9 @@ contract Crowdfunding {
         amountRaised = 0;
 
         // Transfer totalAmountRaised to projectOwner
-        token.transfer(projectOwner, totalAmountRaised);
+        bool transfer = token.transfer(projectOwner, totalAmountRaised);
+
+        require(transfer == true, "Transfer failed in claimFunds");
 
         // Emit the GoalReached event
         emit GoalReached(projectOwner, totalAmountRaised);
@@ -116,7 +123,9 @@ contract Crowdfunding {
         uint256 pledgeAmount = balanceOf[msg.sender];
 
         // Transfer tokens to sender
-        token.transfer(msg.sender, pledgeAmount);
+        bool transfer = token.transfer(msg.sender, pledgeAmount);
+
+        require(transfer == true, "Transfer in refund failed");
         
         // Emit Withdrawal event
         emit Withdrawal(msg.sender, pledgeAmount);
